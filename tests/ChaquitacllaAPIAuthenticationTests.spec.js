@@ -33,3 +33,27 @@ test.only("Sign Up Success", async ({ request }) => {
 
     expect(response.status()).toBe(200);
 });
+
+test.only("Sign In Success", async ({ request }) => {
+    const username = "string"; 
+    const password = "string"; 
+
+    const response = await request.post('http://localhost:5138/api/v1/authentication/sign-in', {
+        data: {
+            username, 
+            password, 
+        },
+        headers: {
+            "Accept": "application/json"
+        }
+    });
+
+    const contentType = response.headers()['content-type'];
+    if (contentType === "application/json; charset=utf-8") {
+        console.log(await response.json());
+    } else {
+        console.log('Unexpected content type:', contentType);
+    }
+
+    expect(response.status()).toBe(200);
+});
